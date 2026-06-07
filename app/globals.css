@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  עיצוב בסיס — רקע כהה בהיר לכל האפליקציה.
+  הקומפוננטות בנויות סביב פלטת slate כהה, אז קובעים אותה כאן פעם אחת.
+*/
+body {
+  background-color: #020617; /* slate-950 */
+  color: #e2e8f0; /* slate-200 */
+}
+
+/*
+  קלאסים מותאמים שהקומפוננטות משתמשות בהם.
+  מוגדרים כ-@layer components כדי שיעבדו לצד מחלקות Tailwind ויאפשרו דריסה.
+*/
+@layer components {
+  /* כרטיס "זכוכית" — רקע שקוף-למחצה עם טשטוש, לאזורי תוכן מודגשים */
+  .glassmorphism {
+    background-color: rgba(15, 23, 42, 0.6); /* slate-900 בשקיפות */
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(51, 65, 85, 0.6); /* slate-700 */
+  }
+
+  /* כפתור עם זוהר עדין ב-hover, לכפתורי פעולה ראשיים */
+  .glow-btn {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+    transition: box-shadow 0.3s ease, transform 0.15s ease;
+  }
+  .glow-btn:hover {
+    box-shadow: 0 8px 30px -6px rgba(59, 130, 246, 0.5); /* זוהר כחול */
+    transform: translateY(-1px);
+  }
+
+  /* הדגשת כרטיס צבע פעיל (בעת ריחוף) בתוך PaletteGrid */
+  .color-card-active {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+  }
+}

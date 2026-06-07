@@ -52,7 +52,7 @@ export default function PaletteGrid({
 
           return (
             <div
-              key={index}
+              key={color.hex}
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
               className={`relative rounded-3xl overflow-hidden aspect-[4/5] sm:aspect-[3/7] group transition-all duration-300 border border-slate-800 flex flex-col justify-between p-4 ${
