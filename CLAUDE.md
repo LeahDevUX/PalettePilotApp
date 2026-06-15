@@ -11,8 +11,10 @@ Takes a brand description as input → generates professional color palettes wit
 - **Framework:** Next.js 15 (App Router)
 - **Frontend:** React (Functional Components + Hooks only)
 - **Styling:** Tailwind CSS
-- **Database:** MongoDB
+- **Database:** MongoDB (Atlas)
 - **Runtime:** Node.js
+- **AI Provider:** Groq (`llama-3.1-8b-instant`) — API key in `GROQ_API_KEY`
+- **API Docs:** Swagger UI available at `/api-docs` (spec served from `/api/docs`)
 
 ## Project Structure Rules
 
@@ -54,6 +56,12 @@ When generating or editing code:
 5. **Before making edits** — ask for approval (use Ask before edits mode).
 6. **Never delete or rename existing files** without explicitly asking first.
 
+## API Structure
+
+- `POST /api/palette` — generates a 5-color palette from a brand description using Groq
+- `GET /api/docs` — serves the OpenAPI spec as JSON
+- `/api-docs` — Swagger UI for testing the API manually
+
 ## What NOT to Do
 
 - Do not place DB logic inside components
@@ -61,3 +69,4 @@ When generating or editing code:
 - Do not use `.then()` chains — use `async/await`
 - Do not generate code without a brief explanation first
 - Do not apply patterns the developer hasn't seen yet without explaining them
+- Do not switch AI providers without updating this file
