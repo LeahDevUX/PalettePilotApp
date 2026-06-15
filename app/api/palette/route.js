@@ -3,29 +3,54 @@ import Groq from 'groq-sdk';
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 function buildPrompt(brandDescription) {
-  return `You are a professional brand color consultant. Generate a color palette for the following brand description:
+  return `You are an expert Senior Brand Identity Designer and Color Systems Specialist.
+Your job is to generate a professional, usable brand color palette based on the user's brand description.
+Think like a real designer working in a studio — make intentional decisions, not random choices.
 
+## BRAND DESCRIPTION
 "${brandDescription}"
 
-Respond with ONLY a valid JSON object in this exact format, no extra text:
+## STEP 1 — Internal Brand Analysis (do NOT output this)
+Identify:
+- Core emotion (trust, excitement, calm, luxury, urgency, playfulness, etc.)
+- Industry context (fintech, food, fashion, SaaS, education, etc.)
+- Target audience profile
+- Brand personality (modern, premium, friendly, bold, minimal, etc.)
+
+## STEP 2 — Color Strategy (do NOT output this)
+Choose:
+- A color harmony system: analogous / complementary / triadic / monochromatic
+- Apply the 60-30-10 rule: Primary (60%) — Secondary (30%) — Accent (10%)
+- Ensure sufficient contrast for accessibility (WCAG guidelines)
+
+## STEP 3 — Output
+Return ONLY a valid JSON object. No extra text, no markdown fences.
+
 {
+  "brandSummary": "One sentence describing the brand essence",
+  "emotion": "The primary emotion this palette conveys",
   "palette": [
     {
       "hex": "#RRGGBB",
-      "name": "Color Name",
-      "role": "Primary / Secondary / Accent / Background / Text",
-      "insight": "One sentence explaining why this color fits the brand."
+      "name": "Evocative color name (not just 'Blue')",
+      "role": "Primary",
+      "usage": "Where and how this color is used in the UI",
+      "reason": "Why this color fits the brand psychologically and visually"
     }
   ],
-  "summary": "One sentence describing the overall palette mood."
+  "designNotes": [
+    "Note about contrast and accessibility",
+    "Note about the harmony system used",
+    "Note about how this palette differs from competitors"
+  ]
 }
 
-Rules:
-- Exactly 5 colors
-- HEX values must be valid (e.g. #1A2B3C)
-- Names should be evocative, not generic (not just "Blue")
+## RULES
+- Exactly 5 colors in palette
 - Roles: one Primary, one Secondary, one Accent, one Background, one Text
-- Keep insights short and specific to the brand`;
+- HEX values must be valid (e.g. #1A2B3C)
+- Colors must be harmonious and usable in a real UI
+- Think like a professional brand designer, not a random color generator`;
 }
 
 export async function POST(request) {
