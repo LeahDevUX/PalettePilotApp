@@ -58,9 +58,19 @@ export async function POST(request) {
     const body = await request.json();
     const { prompt } = body;
 
-    if (!prompt || prompt.trim().length === 0) {
+    // Never trust client input — check the type before using string methods,
+    // otherwise a number or object would crash .trim().
+    if (typeof prompt !== 'string' || prompt.trim().length === 0) {
       return Response.json(
-        { error: 'Brand description is required.' },
+        { error: 'Brand description is required and must be a non-empty string.' },
+        { status: 400 }
+      );
+    }
+
+    // Cap the length so a huge input can't run up the AI usage bill.
+    if (prompt.length > 2000) {
+      return Response.json(
+        { error: 'Brand description is too long (max 2000 characters).' },
         { status: 400 }
       );
     }
