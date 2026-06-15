@@ -1,26 +1,7 @@
-import mongoose from 'mongoose';
 import 'dotenv/config';
-
-const paletteSchema = new mongoose.Schema({
-  title: String,
-  prompt: String,
-  brandSummary: String,
-  emotion: String,
-  palette: [
-    {
-      hex: String,
-      name: String,
-      role: String,
-      usage: String,
-      reason: String,
-    },
-  ],
-  designNotes: [String],
-  status: { type: String, enum: ['saved', 'draft', 'archived'], default: 'saved' },
-  createdAt: { type: Date, default: Date.now },
-});
-
-const Palette = mongoose.model('Palette', paletteSchema);
+import mongoose from 'mongoose';
+import { connectToDatabase } from './db.js';
+import Palette from './models/Palette.js';
 
 const seedData = [
   {
@@ -179,7 +160,7 @@ const seedData = [
 
 async function seed() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await connectToDatabase();
     console.log('Connected to MongoDB');
 
     await Palette.deleteMany({});
